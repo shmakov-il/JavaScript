@@ -2,6 +2,7 @@
 
 // Объявление переменных
 const mission = 150000,
+  income = 'фриланс',
   money = prompt('Ваш месячный доход?'),
   addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
   deposit = confirm('Есть ли у вас депозит в банке?'),
@@ -9,47 +10,49 @@ const mission = 150000,
   amount1 = prompt('Во сколько это обойдется?'),
   expenses2 = prompt('Введите обязательную статью расходов?'),
   amount2 = prompt('Во сколько это обойдется?'),
-  budgetMonth = Number(money) - Number(amount1) - Number(amount2),
-  compliteTarget = mission / budgetMonth,
-  budgetDay = budgetMonth / 30;
+  getExpensesMonth = function() {
+    return Number(amount1) + Number(amount2);
+  }, 
+  getAccumulatedMonth = function() {
+    return Number(money) - Number(amount1) - Number(amount2);
+  },
+  accumulatedMonth = getAccumulatedMonth(),
+  getTargetMonth = function() {
+    return accumulatedMonth / 30;
+  },
+  budgetDay = accumulatedMonth / 30,
+  showTypeOf = function(data) {
+    console.log(data, typeof(data));
+  },
+  getStatusIncome = function () {
+    switch (true) {
+    case (budgetDay >= 1200):
+      return ('У вас высокий уровень дохода');
+    case (budgetDay <= 600 && budgetDay >= 0):
+      return ('К сожалению, у вас уровень дохода ниже среднего');
+    case (budgetDay < 1200 && budgetDay > 600):
+      return ('У вас средний уровень дохода');
+    case (budgetDay < 0):
+      return ('Что-то пошло не так');
+    }
+  };
 
+// Вызов функции showTypeOf
+showTypeOf(Number(money));
+showTypeOf(income);
+showTypeOf(deposit);
 
-// Выводим месячный доход
-console.log('Ваш месячный доход ', money);
+// Вывод функции getExpensesMonth
+console.log('Сумма всех обязательных расходов за месяц: ', getExpensesMonth());
 
-// Выводим возможные расходы
-console.log('Расходы: ', addExpenses);
+// Вывод возможных расходов
+console.log('Расходы: ', addExpenses.split(', '));
 
-// Выводим информацию про депозит
-console.log('Наличие депозита: ', deposit);
+// Вывод функции getTargetMonth
+console.log('Цель будет достигнута через: ', Math.ceil(getTargetMonth()), ' месяцев (-а)');
 
-// Выводим информацию про обязательные расходы
-console.log('Расход 1: ', expenses1);
-console.log('Величина 1: ', amount1);
-console.log('Расход 2: ', expenses2);
-console.log('Величина 2: ', amount2);
+// Вывод бюджета на день
+console.log('Бюджет на день: ', Math.floor(budgetDay));
 
-// Выводим бюджет на месяц
-console.log('Месячный бюджет: ', budgetMonth);
-
-// Выводим compliteTarget, за сколько будет выполнена цель mission
-console.log('Цель будет достигнута за ' + Math.ceil(compliteTarget) + ' месяцев (-а)');
-
-// Выводим дневной бюджет - budgetDay
-console.log('Дневной бюджет: ', Math.floor(budgetDay));
-
-// Пишем конструкцию условий
-switch (true) {
-  case (budgetDay >= 1200):
-    console.log('У вас высокий уровень дохода');
-    break;
-  case (budgetDay <= 600 && budgetDay >= 0):
-    console.log('К сожалению, у вас уровень дохода ниже среднего');
-    break;
-  case (budgetDay < 1200 && budgetDay > 600):
-    console.log('У вас средний уровень дохода');
-    break;
-  case (budgetDay < 0):
-    console.log('Что-то пошло не так');
-}
-
+// Вывод функции getStatusIncome
+console.log(getStatusIncome());
