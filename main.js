@@ -42,8 +42,8 @@ let appData = {
     while (!isNumber(appData.amount2)) {
       appData.amount2 = prompt('Во сколько это обойдется?');
     }
-    appData.expenses[appData.expenses1] = appData.amount1;
-    appData.expenses[appData.expenses2] = appData.amount2;
+    appData.expenses[appData.expenses1] = Number(appData.amount1);
+    appData.expenses[appData.expenses2] = Number(appData.amount2);
     
 
   },
