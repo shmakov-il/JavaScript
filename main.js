@@ -46,36 +46,26 @@ let appData = {
     appData.expenses[expenses1] = Number(amount1);
     appData.expenses[expenses2] = Number(amount2);
 
-    appData.getExpensesMonth = function() {
-      let sum = 0;
-        for (let key in appData.expenses) {
-        sum += Number(appData.expenses[key]);
-        }
-      appData.expensesMonth = sum;
-      };
-    appData.getExpensesMonth();
+    let expensesMonth = 0;
+      for (let key in appData.expenses) {
+        expensesMonth += Number(appData.expenses[key]);
+      }
+    appData.expensesMonth = expensesMonth;
   },
-};
-appData.asking();
 
-// Считаем бюдежт на месяц и на день
-appData.getBudget = function() {
+  getBudget: function() {
   let budgetMonth = appData.budget - appData.expensesMonth;
   let budgetDay = budgetMonth / 30;
   appData.budgetMonth = budgetMonth;
   appData.budgetDay = budgetDay;
-};
-appData.getBudget();
+  },
 
-// Считаем цель
-appData.getTargetMonth = function() {
+  getTargetMonth: function() {
   appData.targetMonth = appData.mission / appData.budgetMonth;
   return appData.targetMonth;
-};
-appData.getTargetMonth();
+  },
 
-// Считаем уровень дохода
-appData.getStatusIncome = function() {
+  getStatusIncome: function() {
   if (appData.budgetDay >= 1200) {
       return ('У вас высокий уровень дохода');
     } else if (appData.budgetDay <= 600 && appData.budgetDay >= 0) {
@@ -85,11 +75,15 @@ appData.getStatusIncome = function() {
     } else if (appData.budgetDay < 0) {
       return ('Что-то пошло не так');
     }
+  },
 };
+appData.asking();
+appData.getBudget();
+appData.getTargetMonth();
 appData.getStatusIncome();
 
 // Выводим в консоль расходы за месяц, цель, уровень дохода
-console.log('Расходы за месяц: ' + appData.budgetMonth);
+console.log('Расходы за месяц: ' + appData.expensesMonth);
 // Выводим в консоль  цель
 if (appData.targetMonth >= 0) {
   console.log('Цель будет достигнута через: ', Math.ceil(appData.targetMonth), ' месяцев (-а)');
@@ -103,8 +97,3 @@ console.log(appData.getStatusIncome());
 for (let key in appData) {
   console.log('Наша программа включает в себя данные: ' + key, appData[key]);
 }
-
-
-
-
-
