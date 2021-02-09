@@ -27,38 +27,36 @@ let appData = {
   deposit: false,
   mission: 50000,
   period: 3,
-};
-// Спрашиваем у пользователя данные
-appData.asking = function() {
-  let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Телефон, Интернет');
-  appData.addExpenses = addExpenses.toLowerCase().split(', ');
+  asking: function () {
+    let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Телефон, Интернет');
+    appData.addExpenses = addExpenses.toLowerCase().split(', ');
 
-  appData.deposit = confirm('Есть ли у вас депозит в банке?');
+    appData.deposit = confirm('Есть ли у вас депозит в банке?');
 
-  let expenses1 = prompt('Введите обязательную статью расходов?', 'школа');
-  let amount1 = prompt('Во сколько это обойдется?', 50);
-  while (!isNumber(amount1)) {
-      amount1 = prompt('Во сколько это обойдется?');
-    }
-  let expenses2 = prompt('Введите обязательную статью расходов?', 'садик');
-  let amount2 = prompt('Во сколько это обойдется?', 20);
-  while (!isNumber(amount2)) {
-      amount2 = prompt('Во сколько это обойдется?');
-    }
-  appData.expenses[expenses1] = Number(amount1);
-  appData.expenses[expenses2] = Number(amount2);
+    let expenses1 = prompt('Введите обязательную статью расходов?', 'школа');
+    let amount1 = prompt('Во сколько это обойдется?', 50);
+    while (!isNumber(amount1)) {
+        amount1 = prompt('Во сколько это обойдется?');
+      }
+    let expenses2 = prompt('Введите обязательную статью расходов?', 'садик');
+    let amount2 = prompt('Во сколько это обойдется?', 20);
+    while (!isNumber(amount2)) {
+        amount2 = prompt('Во сколько это обойдется?');
+      }
+    appData.expenses[expenses1] = Number(amount1);
+    appData.expenses[expenses2] = Number(amount2);
+
+    appData.getExpensesMonth = function() {
+      let sum = 0;
+        for (let key in appData.expenses) {
+        sum += Number(appData.expenses[key]);
+        }
+      appData.expensesMonth = sum;
+      };
+    appData.getExpensesMonth();
+  },
 };
 appData.asking();
-
-// Считаем сумму всех обязательных расходов
-appData.getExpensesMonth = function() {
-  let sum = 0;
-      for (let key in appData.expenses) {
-        sum += Number(appData.expenses[key]);
-    }
-    appData.expensesMonth = sum;
-};
-appData.getExpensesMonth();
 
 // Считаем бюдежт на месяц и на день
 appData.getBudget = function() {
@@ -106,8 +104,6 @@ for (let key in appData) {
   console.log('Наша программа включает в себя данные: ' + key, appData[key]);
 }
 
-
-console.log(appData);
 
 
 
