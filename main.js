@@ -54,22 +54,22 @@ const appData = {
       appData.addExpenses = appData.addExpenses.map(item => item.trim().slice(0, 1).toUpperCase() + item.trim().slice(1)).join(', ');
     } while (isNumber(addExpenses) || !addExpenses.trim());
 
-    let expenses1;
+    let expenses1,
+        amount1,
+        expenses2,
+        amount2;
     do {
       expenses1 = prompt('Введите обязательную статью расходов?', 'школа');
     } while (isNumber(expenses1) || !expenses1.trim());
 
-    let amount1;
     while (!isNumber(amount1)) {
         amount1 = prompt('Во сколько это обойдется?');
       }
 
-    let expenses2;
     do {
       expenses2 = prompt('Введите обязательную статью расходов?', 'садик');
     } while (isNumber(expenses2) || !expenses2.trim());
-    
-    let amount2;
+
     while (!isNumber(amount2)) {
         amount2 = prompt('Во сколько это обойдется?');
       }
