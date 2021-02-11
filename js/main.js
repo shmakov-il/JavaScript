@@ -1,6 +1,5 @@
 'use strict';
 
-
 let start = document.getElementById('start'),
       btnPlus = document.getElementsByTagName('button'),
       incomePlus = btnPlus[0],
@@ -22,8 +21,6 @@ let start = document.getElementById('start'),
       targetAmount = document.querySelector('.target-amount'),
       periodAmount = document.querySelector('.period-amount');
       
-    
-
 let isNumber = function(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 };
@@ -43,10 +40,6 @@ const appData = {
   moneyDeposit: 0,
   start: function() {
   
-    // if (salaryAmount.value === '') {
-    //   alert('Ошибка, поле "Месячный доход" должно быть заполнено!');
-    //   return;
-    // }
     appData.budget = +salaryAmount.value;
     console.log(salaryAmount.value);
 
@@ -76,7 +69,6 @@ const appData = {
     periodSelect.addEventListener('change', function(event) {
     incomePeriodValue.value = appData.budgetMonth * event.target.value;
     });
-
   },
 
   addExpensesBlock: function() {
