@@ -40,7 +40,6 @@ const appData = {
   moneyDeposit: 0,
   cancel: function() {
     let inputClear = Array.from(document.querySelectorAll('.data [type="text"]'));
-    console.log(inputClear);
     for (let i = 0; i < inputClear.length; i += 1) {
       inputClear[i].value = '';
     }
