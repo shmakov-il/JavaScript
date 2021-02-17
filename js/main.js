@@ -78,6 +78,20 @@ const appData = {
       for (let i in exp) {
         delete exp[i];
       }
+    if (incomeItems.length > 1) {
+      let variable = Array.prototype.slice.call(incomeItems, 1);
+      variable.forEach((item) => {
+      item.parentNode.removeChild(item);
+      });
+      incomePlus.style.display = 'block';
+    }
+    if (expensesItems.length > 1) {
+      let variable = Array.prototype.slice.call(expensesItems, 1);
+      variable.forEach((item) => {
+      item.parentNode.removeChild(item);
+      });
+      expensesPlus.style.display = 'block';
+    }
   },
 
   start: function() {
