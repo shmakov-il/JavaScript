@@ -82,20 +82,42 @@ AppData.prototype.cancel = function() {
       for (let i in exp) {
         delete exp[i];
       }
-    if (incomeItems.length > 1) {
-      let variable = Array.prototype.slice.call(incomeItems, 1);
-      variable.forEach((item) => {
-      item.parentNode.removeChild(item);
-      });
-      incomePlus.style.display = 'block';
-    }
-    if (expensesItems.length > 1) {
-      let variable = Array.prototype.slice.call(expensesItems, 1);
-      variable.forEach((item) => {
-      item.parentNode.removeChild(item);
-      });
-      expensesPlus.style.display = 'block';
-    }
+    this.addIncomeUnBlock();
+    this.addExpensesUnBlock();
+    // if (incomeItems.length > 1) {
+    //   let variable = Array.prototype.slice.call(incomeItems, 1);
+    //   variable.forEach((item) => {
+    //   item.parentNode.removeChild(item);
+    //   });
+    //   incomePlus.style.display = 'block';
+    // }
+    // if(incomeItems.length > 1){
+    //   const variable = Array.prototype.slice.call(incomeItems, 1);
+    //   variable.forEach((item) =>{
+    //     item.parentNode.removeChild(item);
+    //   });
+    //   incomePlus.style.display = 'block';
+    // } else if (incomeItems.length === 0 || incomeItems.length === 1){
+    //   console.log(this);
+    // }
+
+    // if(expensesItems.length > 1){
+    //   const variable = Array.prototype.slice.call(expensesItems, 1);
+    //   variable.forEach((item) =>{
+    //     item.parentNode.removeChild(item);
+    //   });
+    //   expensesPlus.style.display = 'block';
+    // } else if (expensesItems.length === 0 || expensesItems.length === 1){
+    //   console.log(this);
+    // }
+
+    // if (expensesItems.length > 1) {
+    //   let variable = Array.prototype.slice.call(expensesItems, 1);
+    //   variable.forEach((item) => {
+    //   item.parentNode.removeChild(item);
+    //   });
+    //   expensesPlus.style.display = 'block';
+    // }
   };
 
 AppData.prototype.start = function() {
@@ -252,15 +274,33 @@ AppData.prototype.eventsListeners = function() {
 
   cancel.addEventListener('click', _this.cancel.bind(_this));
 
-  start.disabled = true;
-  salaryAmount.addEventListener('change', function() {
-    if (salaryAmount.value === '') {
-      start.disabled = true;
-    } else {
-      start.disabled = false;
-      start.addEventListener('click', _this.start.bind(_this));
-    }
-  });
+  const checkButton = () => {
+    start.disabled = (!(Number(salaryAmount.value)) || +salaryAmount.value <= 0);
+  };
+    salaryAmount.addEventListener('input', checkButton);
+    checkButton();
+    start.addEventListener('click', _this.start.bind(_this));
+};
+
+AppData.prototype.addIncomeUnBlock = function(){
+  incomeItems = document.querySelectorAll('.income-items');
+  if(incomeItems.length > 1){
+    let variable = Array.prototype.slice.call(incomeItems, 1);
+    variable.forEach((item) =>{
+      item.parentNode.removeChild(item);
+    });
+    incomePlus.style.display = 'block';
+  }
+};
+AppData.prototype.addExpensesUnBlock = function(){
+  expensesItems = document.querySelectorAll('.expenses-items');
+  if(expensesItems.length > 1){
+    let variable = Array.prototype.slice.call(expensesItems, 1);
+    variable.forEach((item) =>{
+      item.parentNode.removeChild(item);
+    });
+    expensesPlus.style.display = 'block';
+  }
 };
 
 const appData = new AppData();
