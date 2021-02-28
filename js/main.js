@@ -97,7 +97,7 @@ class AppData {
     }
     this.budget = +salaryAmount.value;
 
-    const cancelBtn = function () {
+    const cancelBtn = () => {
       cancel.style.display = "block";
       start.style.display = "none";
     };
@@ -141,6 +141,15 @@ class AppData {
     if (expensesItems.length === 3) {
       expensesPlus.style.display = 'none';
     }
+    const fixedExpensesTitle = document.querySelectorAll('input.expenses-title'),
+      fixedExpensesAmount = document.querySelectorAll('input.expenses-amount');
+    if (fixedExpensesTitle.length === 2 && fixedExpensesAmount.length === 2) {
+      fixedExpensesTitle[1].value = '';
+      fixedExpensesAmount[1].value = '';
+    } else if (fixedExpensesTitle.length === 3 && fixedExpensesAmount.length === 3){
+      fixedExpensesTitle[2].value = '';
+      fixedExpensesAmount[2].value = '';
+    }
   }
 
   getExpenses() {
@@ -173,6 +182,15 @@ class AppData {
     incomeItems = document.querySelectorAll('.income-items');
     if (incomeItems.length === 3) {
       incomePlus.style.display = 'none';
+    }
+    const fixedIncomeTitle = document.querySelectorAll('input.income-title'),
+      fixedIncomeAmount = document.querySelectorAll('input.income-amount');
+    if (fixedIncomeTitle.length === 2 && fixedIncomeAmount.length === 2) {
+      fixedIncomeTitle[1].value = '';
+      fixedIncomeAmount[1].value = '';
+    } else if (fixedIncomeTitle.length === 3 && fixedIncomeAmount.length === 3){
+      fixedIncomeTitle[2].value = '';
+      fixedIncomeAmount[2].value = '';
     }
   }
 
@@ -236,7 +254,7 @@ class AppData {
     const valueSelect = this.value;
     if (valueSelect === 'other') {
       depositPercent.style.display = 'inline-block';
-      depositPercent.addEventListener('input', function () {
+      depositPercent.addEventListener('input', () => {
         
       const checkButton = () => {
       start.disabled = (!Number(depositPercent.value) || Number(depositPercent.value) < 0 || Number(depositPercent.value) > 100);
@@ -245,7 +263,7 @@ class AppData {
       start.addEventListener('input', checkButton);
       checkButton();
       }); 
-      depositPercent.addEventListener('change', function () {
+      depositPercent.addEventListener('change', () => {
         if (!Number(depositPercent.value) || Number(depositPercent.value) < 0 || Number(depositPercent.value) > 100) {
           alert('Введите корректное значение');
         }
@@ -292,6 +310,19 @@ class AppData {
 
     depositCheck.addEventListener('change', this.depositHandler.bind(this));
     
+    const prohibitName = document.querySelectorAll('input[placeholder="Наименование"');
+    prohibitName.forEach(item => {
+      item.addEventListener('input', () => {
+        item.value = item.value.replace(/[^\.\,\-\_\'\"\@\?\!\:\$ А-ЯЁа-яё()]/g, '');
+      });
+    });
+
+    const prohibitSum = document.querySelectorAll('input[placeholder="Сумма"');
+    prohibitSum.forEach(item => {
+      item.addEventListener('input', () => {
+        item.value = item.value.replace(/[^0-9]/g, '');
+      });
+    });
 
   }
 
