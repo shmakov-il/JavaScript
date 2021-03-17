@@ -150,6 +150,7 @@ class AppData {
       fixedExpensesTitle[2].value = '';
       fixedExpensesAmount[2].value = '';
     }
+    this.addProhibit();
   }
 
   getExpenses() {
@@ -192,6 +193,7 @@ class AppData {
       fixedIncomeTitle[2].value = '';
       fixedIncomeAmount[2].value = '';
     }
+    this.addProhibit();
   }
 
   getIncome() {
@@ -309,21 +311,6 @@ class AppData {
     start.addEventListener('click', this.start.bind(this));
 
     depositCheck.addEventListener('change', this.depositHandler.bind(this));
-    
-    const prohibitName = document.querySelectorAll('input[placeholder="Наименование"');
-    prohibitName.forEach(item => {
-      item.addEventListener('input', () => {
-        item.value = item.value.replace(/[^\.\,\-\_\'\"\@\?\!\:\$ А-ЯЁа-яё()]/g, '');
-      });
-    });
-
-    const prohibitSum = document.querySelectorAll('input[placeholder="Сумма"');
-    prohibitSum.forEach(item => {
-      item.addEventListener('input', () => {
-        item.value = item.value.replace(/[^0-9]/g, '');
-      });
-    });
-
   }
 
   addIncomeUnBlock() {
@@ -347,7 +334,25 @@ class AppData {
     expensesPlus.style.display = 'block';
     }
   }
+
+  addProhibit() {
+    const prohibitName = document.querySelectorAll('input[placeholder="Наименование"');
+    prohibitName.forEach(item => {
+      item.addEventListener('input', () => {
+        item.value = item.value.replace(/[^\.\,\-\_\'\"\@\?\!\:\$ А-ЯЁа-яё()]/g, '');
+      });
+    });
+
+    const prohibitSum = document.querySelectorAll('input[placeholder="Сумма"');
+    prohibitSum.forEach(item => {
+      item.addEventListener('input', () => {
+        item.value = item.value.replace(/[^0-9]/g, '');
+      });
+    });
+  }
 }
+
 
 const appData = new AppData();
 appData.eventsListeners();
+appData.addProhibit();
